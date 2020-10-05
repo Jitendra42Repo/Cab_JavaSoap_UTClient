@@ -1,0 +1,130 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://CabService.uber.jiten.edu/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="CabServiceImplService" targetNamespace="http://CabService.uber.jiten.edu/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://CabService.uber.jiten.edu/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://CabService.uber.jiten.edu/">
+  <xs:element name="cancleCab" type="tns:cancleCab"/>
+  <xs:element name="cancleCabResponse" type="tns:cancleCabResponse"/>
+  <xs:element name="requestCab" type="tns:requestCab"/>
+  <xs:element name="requestCabResponse" type="tns:requestCabResponse"/>
+  <xs:complexType name="cancleCab">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cabServiceRequest" type="tns:cabServiceRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cabServiceRequest">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="ride" type="tns:ride"/>
+      <xs:element name="cabReserve" type="tns:cabReserve"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="ride">
+    <xs:sequence>
+      <xs:element name="id" type="xs:integer"/>
+      <xs:element name="to" type="xs:string"/>
+      <xs:element name="from" type="xs:string"/>
+      <xs:element name="cost" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cabReserve">
+    <xs:sequence>
+      <xs:element name="cancle" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="cancleCabResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="carServiceResponse" type="tns:carServiceResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="carServiceResponse">
+    <xs:sequence>
+      <xs:element name="processed" type="xs:boolean"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="requestCab">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="cabServiceRequest" type="tns:cabServiceRequest"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="requestCabResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="carServiceResponse" type="tns:carServiceResponse"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="ServiceException" type="tns:ServiceException"/>
+  <xs:complexType name="ServiceException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="requestCabResponse">
+    <wsdl:part element="tns:requestCabResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="ServiceException">
+    <wsdl:part element="tns:ServiceException" name="ServiceException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="requestCab">
+    <wsdl:part element="tns:requestCab" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cancleCab">
+    <wsdl:part element="tns:cancleCab" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="cancleCabResponse">
+    <wsdl:part element="tns:cancleCabResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="ICabService">
+    <wsdl:operation name="cancleCab">
+      <wsdl:input message="tns:cancleCab" name="cancleCab">
+    </wsdl:input>
+      <wsdl:output message="tns:cancleCabResponse" name="cancleCabResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ServiceException" name="ServiceException">
+    </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="requestCab">
+      <wsdl:input message="tns:requestCab" name="requestCab">
+    </wsdl:input>
+      <wsdl:output message="tns:requestCabResponse" name="requestCabResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:ServiceException" name="ServiceException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="CabServiceImplServiceSoapBinding" type="tns:ICabService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="cancleCab">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="cancleCab">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="cancleCabResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <soap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="requestCab">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="requestCab">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="requestCabResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ServiceException">
+        <soap:fault name="ServiceException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="CabServiceImplService">
+    <wsdl:port binding="tns:CabServiceImplServiceSoapBinding" name="CabServiceImplPort">
+      <soap:address location="http://localhost:8080/SoapCabSrvc/cabService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
